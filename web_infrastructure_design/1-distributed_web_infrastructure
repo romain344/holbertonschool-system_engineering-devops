@@ -1,0 +1,31 @@
+graph TD
+
+    LB[Internet]
+    subgraph Server1 [Server 1]
+        WS1[Nginx Web Server]
+        APP1[Application Server]
+        CODE1[Application Files]
+        DB1[(MySQL Database - Primary)]
+    end
+
+    subgraph Server2 [Server 2]
+        WS2[Nginx Web Server]
+        APP2[Application Server]
+        CODE2[Application Files]
+        DB2[(MySQL Database - Replica)]
+    end
+
+    Client[Client/User]
+
+    %% Connections
+    Client --> LB
+    LB --> WS1
+    LB --> WS2
+
+    WS1 --> APP1 --> CODE1
+    WS2 --> APP2 --> CODE2
+
+    APP1 --> DB1
+    APP2 --> DB2
+
+    DB1 --> DB2
