@@ -1,0 +1,17 @@
+graph TD
+
+    Client[Client/User]
+
+    subgraph LBCluster [Load Balancer Cluster]
+        LB1[HAProxy Load Balancer 1]
+        LB2[HAProxy Load Balancer 2]
+    end
+
+    Client --> LB1
+    Client --> LB2
+
+    LB1 --> WS[Web Server Nginx]
+    LB2 --> WS
+
+    WS --> APP[Application Server]
+    APP --> DB[(MySQL Database)]
