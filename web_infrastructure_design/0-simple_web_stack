@@ -1,0 +1,14 @@
+architecture-beta
+    group user_group(internet)[User]
+    group infra_group(server)[Single Server]
+
+    service user1(internet)[User] in user_group
+
+    service nginx(server)[Nginx] in infra_group
+    service app(server)[Application Server] in infra_group
+    service db(database)[MySQL Database] in infra_group
+
+    user1:R -- L:nginx
+    nginx:R -- L:app
+    app:R -- L:db
+    
