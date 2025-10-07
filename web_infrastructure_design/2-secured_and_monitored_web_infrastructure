@@ -1,19 +1,10 @@
-graph TD
-
-    Client[Client/User] --> FW1[Firewall 1]
-
+flowchart TD
+    Client["Client/User"] --> FW1["Firewall 1"]
     FW1 --> LB["HAProxy Load Balancer (SSL Certificate - HTTPS)"]
-
-    LB --> FW2[Firewall 2]
-
-    FW2 --> S1[Server 1: Nginx + App + Code + MySQL Primary + Monitoring]
-    FW2 --> S2[Server 2: Nginx + App + Code + MySQL Replica + Monitoring]
-    FW2 --> S3[Server 3: Nginx + App + Code + MySQL Replica + Monitoring]
-
-    S1 --> FW3[Firewall 3]
-    FW3 --> S2
-    FW3 --> S3
-
-    S1 --> MON[Monitoring Service]
-    S2 --> MON
-    S3 --> MON
+    LB --> S1["Server 1: Nginx + App + Code + MySQL Primary + Monitoring"] & S3["Server 3: Nginx + App + Code + MySQL Replica + Monitoring"] & S2["Server 2: Nginx + App + Code + MySQL Replica + Monitoring"]
+    S1 --> n1["firewall 3"] & n3["monitoroing service"]
+    S3 --> n1 & n3
+    S2 --> n1 & n3
+    n1 --> n2["Mysql primary"]
+    n2 --> n4["firewall 3"]
+    n4 --> n5["Mysql replica"]
