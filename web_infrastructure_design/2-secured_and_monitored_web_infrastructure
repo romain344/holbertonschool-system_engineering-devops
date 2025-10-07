@@ -17,4 +17,3 @@ graph TD
     S1 --> MON[Monitoring Service]
     S2 --> MON
     S3 --> MON
-
